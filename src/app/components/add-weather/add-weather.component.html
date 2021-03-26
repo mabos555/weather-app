@@ -1,0 +1,29 @@
+<div class="container pl-5 align-items-center">
+    <form [formGroup]="addWeatherForm">
+        <div class="row mx-5 my-3">
+            <div class="col-sm-4 p-0">
+                <select class="custom-select" formControlName="CityName">
+                  <option [ngValue]="null" disabled>Select City</option>
+                  <option *ngFor="let city of cities" [ngValue]="city">
+                    {{city}}
+                  </option>
+                </select>
+                <div *ngIf="CityName.invalid && addButtonClicked"></div>
+            </div>
+            <div class="form-group col-sm-4 px-3 my-0">
+                <input class="form-control" type="text" formControlName="Units" placeholder="Units&#10098;standard, metric, imperial&#10099;">
+                <div *ngIf="Units.invalid && (addButtonClicked || Units.touched)"></div>
+            </div>
+            <div class="col m-0 px-0">
+                <button type="button" class="btn btn-default shadow-none" (click)="onSubmit()">
+                  <i class="fa fa-plus fa-2x"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="row result">
+    <div class="col" *ngIf="weatherData">
+        <h4>{{weatherData.Name}} {{weatherData.Temp}}&deg;{{weatherData.UnitsSymbol}}</h4>
+    </div>
+</div>

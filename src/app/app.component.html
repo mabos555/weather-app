@@ -1,0 +1,10 @@
+<div class="header">
+    <h2>Check Weather</h2>
+    <app-add-weather (UnitsToParent)="getUnitsFromChild($event)"></app-add-weather>
+</div>
+<div class="footer">
+    <h2>Weather in :</h2>
+    <div class="col" *ngIf="weatherData">
+        <h4>{{weatherData.Name}} {{weatherData.Temp}}&deg;{{weatherData.UnitsSymbol}}; {{weatherData.Description}}</h4>
+    </div>
+</div>

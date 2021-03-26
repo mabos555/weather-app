@@ -1,0 +1,11 @@
+.header>h2 {
+    margin: 0px;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.footer {
+    position: absolute;
+    margin-left: 100px;
+    margin-top: 280px;
+}
