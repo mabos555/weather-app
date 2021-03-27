@@ -4,9 +4,9 @@
 </div>
 <div class="footer">
     <h2>Weather in :</h2>
-    <div class="col" *ngFor="let weather of weatherArray">
+    <div class="col" *ngFor="let weather of weatherArray; index as i">
         <div *ngIf="weather">
-            <h4>{{weather.Name}} {{weather.Temp}}&deg;{{weather.UnitsSymbol}}; {{weather.Description}}</h4>
+            <h4> {{i+1}}. {{weather.Name}} {{weather.Temp}}&deg;{{weather.UnitsSymbol}}; {{weather.Description}}</h4>
         </div>
     </div>
 </div>
