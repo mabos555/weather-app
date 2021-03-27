@@ -9,6 +9,7 @@ import { switchMap, map, catchError, share, concatMap, mergeMap, debounceTime } 
 @Injectable()
 export class WeatherEffects {
 
+  saveUnits: string;
   constructor(private actions$: Actions, private weatherService: WeatherService) { }
 
   // loadWeather$: Observable<Action> = createEffect(() =>
@@ -31,8 +32,9 @@ export class WeatherEffects {
       ofType(WeatherActions.FETCH_WEATHER),
       concatMap((action: any) => {
         console.log("inside of effect the action payload to the get service is:", action.payload);
+        this.saveUnits = action.payload.Units;
         return this.weatherService.getWeatherData(action.payload).pipe(
-          map(data => ({ type: WeatherActions.FETCH_WEATHER_SUCCESS, payload: data })),
+          map(data => ({ type: WeatherActions.FETCH_WEATHER_SUCCESS, payload: Object.assign({}, { units: this.saveUnits }, data) })),
           catchError((err) => {
             return of(new WeatherActions.FetchWeatherFail(err['message']));
           })

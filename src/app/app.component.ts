@@ -15,10 +15,10 @@ export class AppComponent {
 
   constructor(private store: Store<WeatherStore.state>) { }
 
-  getUnitsFromChild(units: string) {
+  getNotifiedFromChild(notified: boolean) {
     this.store.select(state => state).subscribe((data) => {
       if (Object.keys(data).length !== 0 && !data.weather.loading && data.weather.loaded) {
-        this.weatherData = Utils.createWeatherResponce(data.weather.data, units);
+        this.weatherData = Utils.createWeatherResponce(data.weather.data);
         this.weatherArray.push(this.weatherData);
         console.log("inside app the weather data is:", this.weatherData);
         console.log("inside app the weather array is:", this.weatherArray);

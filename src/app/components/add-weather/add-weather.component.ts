@@ -32,8 +32,8 @@ export class AddWeatherComponent implements OnInit {
     this.CreateAddWeatherForm();
 
     this.store.select(state => state).subscribe((data) => {
-      if (Object.keys(data).length !== 0) {
-        this.weatherData = Utils.createWeatherResponce(data.weather.data, this.Units.value);
+      if (Object.keys(data).length !== 0 && !data.weather.loading && data.weather.loaded) {
+        this.weatherData = Utils.createWeatherResponce(data.weather.data);
       }
     });
   }
@@ -55,7 +55,7 @@ export class AddWeatherComponent implements OnInit {
   //#region Events
 
   @Output()
-  UnitsToParent: EventEmitter<string> = new EventEmitter<string>();
+  UnitsToParent: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   onSubmit(): void {
     this.addButtonClicked = true;
@@ -63,13 +63,13 @@ export class AddWeatherComponent implements OnInit {
       this.markAsTouched();
     }
     else {
-      this.UnitsToParent.emit(this.Units.value);
       let weather = this.createWeatherRequest();
       this.store.dispatch(new WeatherStore.FetchWeather(weather));
       // this code will add another self component
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(AddWeatherComponent);
       this.container.createComponent(componentFactory);
       this.lockButtonAfterFinish = true;
+      this.UnitsToParent.emit(this.lockButtonAfterFinish);
     }
   }
 
