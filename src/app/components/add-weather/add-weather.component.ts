@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { WeatherRequest, WeatherResponse } from 'src/app/store/model/weather';
@@ -18,12 +18,15 @@ export class AddWeatherComponent implements OnInit {
   cities: Array<string> = ['Kyiv', 'Tel-Aviv'];
   addButtonClicked: boolean;
   weatherData: WeatherResponse;
+  // this is for creating new self components.
+  @ViewChild('container', { read: ViewContainerRef }) container: ViewContainerRef;
+  components = [];
 
   //#endregion Form Fields
 
   //#region Life Cycle Hooks
 
-  constructor(private formBuilder: FormBuilder, private store: Store<WeatherStore.state>) { }
+  constructor(private formBuilder: FormBuilder, private store: Store<WeatherStore.state>, private componentFactoryResolver: ComponentFactoryResolver) { }
 
   ngOnInit(): void {
     this.CreateAddWeatherForm();
@@ -63,6 +66,12 @@ export class AddWeatherComponent implements OnInit {
       this.UnitsToParent.emit(this.Units.value);
       let weather = this.createWeatherRequest();
       this.store.dispatch(new WeatherStore.FetchWeather(weather));
+      // this code will add another self component
+      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(AddWeatherComponent);
+      const component = this.container.createComponent(componentFactory);
+      // for later use:
+      this.components.push(component);
+      console.log("compoents array conatins:", this.components);
     }
   }
 

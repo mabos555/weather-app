@@ -15,7 +15,7 @@
                 <div *ngIf="Units.invalid && (addButtonClicked || Units.touched)"></div>
             </div>
             <div class="col m-0 px-0">
-                <button type="button" class="btn btn-default shadow-none" (click)="onSubmit()">
+                <button type="button" class="btn btn-default shadow-none" (click)="onSubmit()" [disabled]="addButtonClicked">
                   <i class="fa fa-plus fa-2x"></i>
                 </button>
             </div>
@@ -26,4 +26,8 @@
     <div class="col" *ngIf="weatherData">
         <h4>{{weatherData.Name}} {{weatherData.Temp}}&deg;{{weatherData.UnitsSymbol}}</h4>
     </div>
+</div>
+
+<div>
+    <ng-template #container></ng-template>
 </div>
