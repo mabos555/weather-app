@@ -14,8 +14,10 @@ export class WeatherService {
 
   // for now it's object to match with the ngrx as well.
   getWeatherData(data: WeatherRequest): Observable<any> {
-    var url = `http://api.openweathermap.org/data/2.5/weather?q=${data.CityName}&appid=${this.apiKey}&units=${data.Units}`;
-    return this.httpClient.get(url);
+    const url = `http://api.openweathermap.org/data/2.5/weather?q=${data.CityName}&appid=${this.apiKey}&units=${data.Units}`;
+    let result = this.httpClient.get(url);
+    console.log("returned result from http get is:", result);
+    return result;
   }
 
   // getWeatherData(data: WeatherRequest): Observable<WeatherResponse> {

@@ -11,13 +11,28 @@ import { Store } from '@ngrx/store';
 export class AppComponent {
   title = 'weather-app';
   weatherData: WeatherResponse;
+  weatherArray = [];
 
   constructor(private store: Store<WeatherStore.state>) { }
 
+  // getUnitsFromChild(units: string) {
+  //   this.store.select(state => state).subscribe((data) => {
+  //     if (Object.keys(data).length !== 0) {
+  //       this.weatherData = Utils.createWeatherResponce(data.weather.data, units);
+  //       this.weatherArray.push(this.weatherData);
+  //       console.log("inside app the weather data is:", this.weatherData);
+  //       console.log("inside app the weather array is:", this.weatherArray);
+  //     }
+  //   })
+  // }
+
   getUnitsFromChild(units: string) {
     this.store.select(state => state).subscribe((data) => {
-      if (Object.keys(data).length !== 0) {
+      if (Object.keys(data).length !== 0 && !data.weather.loading && data.weather.loaded) {
         this.weatherData = Utils.createWeatherResponce(data.weather.data, units);
+        this.weatherArray.push(this.weatherData);
+        console.log("inside app the weather data is:", this.weatherData);
+        console.log("inside app the weather array is:", this.weatherArray);
       }
     })
   }

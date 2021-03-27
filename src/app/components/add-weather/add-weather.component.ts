@@ -20,7 +20,6 @@ export class AddWeatherComponent implements OnInit {
   weatherData: WeatherResponse;
   // this is for creating new self components.
   @ViewChild('container', { read: ViewContainerRef }) container: ViewContainerRef;
-  components = [];
   lockButtonAfterFinish: boolean;
 
   //#endregion Form Fields
@@ -69,10 +68,8 @@ export class AddWeatherComponent implements OnInit {
       this.store.dispatch(new WeatherStore.FetchWeather(weather));
       // this code will add another self component
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(AddWeatherComponent);
-      const component = this.container.createComponent(componentFactory);
+      this.container.createComponent(componentFactory);
       this.lockButtonAfterFinish = true;
-      // for later use:
-      this.components.push(component);
     }
   }
 

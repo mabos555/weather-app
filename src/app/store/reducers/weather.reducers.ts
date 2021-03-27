@@ -16,19 +16,25 @@ export function reducer(state = initialState, action: weatherActions.WeatherActi
   switch (action.type) {
     case weatherActions.FETCH_WEATHER: {
       console.log("Reducer fetch the action, loading...");
-      return { ...state, loading: true }
+      let currentState = { ...state, loading: true };
+      console.log("the state of the reducer for fetch-weather is:", currentState);
+      return currentState;
       // another way is to use Object.assign({}, state, newData);
     }
     case weatherActions.FETCH_WEATHER_SUCCESS: {
       console.log("Reducer fetch the action, loaded successfully", action.payload);
       const data = action.payload;
-      return { ...state, loading: false, loaded: true, data }
+      let currentState = { ...state, loading: false, loaded: true, data };
+      console.log("the state of the reducer for fetch-weather-success is:", currentState);
+      return currentState;
       // another way is to use Object.assign({}, state, newData);
     }
     case weatherActions.FETCH_WEATHER_FAIL: {
       console.log("Reducer fetch the action, loaded fail", action.payload);
       const data = action.payload;
-      return { ...state, loading: false, loaded: false, data }
+      let currentState = { ...state, loading: false, loaded: false, data };
+      console.log("the state of the reducer for fetch-weather-fail is:", currentState);
+      return currentState;
       // another way is to use Object.assign({}, state, newData);
     }
   }

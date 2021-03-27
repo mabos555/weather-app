@@ -4,7 +4,9 @@
 </div>
 <div class="footer">
     <h2>Weather in :</h2>
-    <div class="col" *ngIf="weatherData">
-        <h4>{{weatherData.Name}} {{weatherData.Temp}}&deg;{{weatherData.UnitsSymbol}}; {{weatherData.Description}}</h4>
+    <div class="col" *ngFor="let weather of weatherArray">
+        <div *ngIf="weather">
+            <h4>{{weather.Name}} {{weather.Temp}}&deg;{{weather.UnitsSymbol}}; {{weather.Description}}</h4>
+        </div>
     </div>
 </div>
