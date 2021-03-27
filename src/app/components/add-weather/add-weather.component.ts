@@ -21,6 +21,7 @@ export class AddWeatherComponent implements OnInit {
   // this is for creating new self components.
   @ViewChild('container', { read: ViewContainerRef }) container: ViewContainerRef;
   components = [];
+  lockButtonAfterFinish: boolean;
 
   //#endregion Form Fields
 
@@ -35,7 +36,7 @@ export class AddWeatherComponent implements OnInit {
       if (Object.keys(data).length !== 0) {
         this.weatherData = Utils.createWeatherResponce(data.weather.data, this.Units.value);
       }
-    })
+    });
   }
 
   //#endregion Life Cycle Hooks
@@ -69,9 +70,9 @@ export class AddWeatherComponent implements OnInit {
       // this code will add another self component
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(AddWeatherComponent);
       const component = this.container.createComponent(componentFactory);
+      this.lockButtonAfterFinish = true;
       // for later use:
       this.components.push(component);
-      console.log("compoents array conatins:", this.components);
     }
   }
 
